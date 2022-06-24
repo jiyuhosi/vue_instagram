@@ -17,6 +17,8 @@
         @write="content = $event"
     />
     <button @click="morePost">more post</button>
+    <h4>{{ $store.state.age }}</h4>
+    <button @click="$store.commit('addAge', 10)">button</button>
 
     <div class="footer">
         <ul class="footer-button-plus">
