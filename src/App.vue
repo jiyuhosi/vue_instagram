@@ -4,17 +4,30 @@
             <li>Cancel</li>
         </ul>
         <ul class="header-button-right">
-            <li>Next</li>
+            <li v-if="step == 1" @click="step++">Next</li>
+            <li v-if="step == 2" @click="publish">Publish</li>
         </ul>
         <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :postData="postData" :step="step" />
+    <Container
+        :postData="postData"
+        :step="step"
+        :image="image"
+        @write="content = $event"
+    />
     <button @click="morePost">more post</button>
 
     <div class="footer">
         <ul class="footer-button-plus">
-            <input type="file" id="file" class="inputfile" />
+            <input
+                @change="upload"
+                multiple
+                accept="image/*"
+                type="file"
+                id="file"
+                class="inputfile"
+            />
             <label for="file" class="input-plus">+</label>
         </ul>
     </div>
@@ -39,9 +52,11 @@ export default {
     },
     data() {
         return {
-            step: 1,
+            step: 0,
             postData: postData,
             more: 0,
+            image: "",
+            content: "",
         };
     },
     methods: {
@@ -52,6 +67,28 @@ export default {
                     this.postData.push(result.data);
                     this.more++;
                 });
+        },
+        upload(e) {
+            let file = e.target.files;
+            console.log(file[0]);
+            let url = URL.createObjectURL(file[0]);
+            console.log(url);
+            this.image = url;
+            this.step++;
+        },
+        publish() {
+            let myPost = {
+                name: "Kim Hyun",
+                userImage: "https://placeimg.com/100/100/arch",
+                postImage: this.image,
+                likes: 36,
+                date: "May 15",
+                liked: false,
+                content: this.content,
+                filter: "perpetua",
+            };
+            this.postData.unshift(myPost);
+            this.step = 0;
         },
     },
 };
