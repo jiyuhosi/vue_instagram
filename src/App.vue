@@ -57,8 +57,15 @@ export default {
             more: 0,
             image: "",
             content: "",
+            selectedFilter: "",
         };
     },
+    mounted() {
+        this.emitter.on("clickBox", (a) => {
+            this.selectedFilter = a;
+        });
+    },
+
     methods: {
         morePost() {
             axios
@@ -85,7 +92,7 @@ export default {
                 date: "May 15",
                 liked: false,
                 content: this.content,
-                filter: "perpetua",
+                filter: this.selectedFilter,
             };
             this.postData.unshift(myPost);
             this.step = 0;

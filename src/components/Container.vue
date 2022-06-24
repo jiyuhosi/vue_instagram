@@ -6,6 +6,7 @@
         <!-- 필터선택페이지 -->
         <div v-if="step == 1">
             <div
+                :class="selectedFilter"
                 class="upload-image"
                 :style="`background-image:url(${image})`"
             ></div>
@@ -15,7 +16,8 @@
                     :image="image"
                     v-for="(filter, i) in filters"
                     :key="i"
-                ></FilterBox>
+                    >{{ filter }}</FilterBox
+                >
             </div>
         </div>
 
@@ -72,7 +74,13 @@ export default {
                 "willow",
                 "xpro2",
             ],
+            selectedFilter: "",
         };
+    },
+    mounted() {
+        this.emitter.on("clickBox", (a) => {
+            this.selectedFilter = a;
+        });
     },
     components: {
         Post: Post,
