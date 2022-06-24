@@ -10,11 +10,12 @@
                 :style="`background-image:url(${image})`"
             ></div>
             <div class="filters">
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
+                <FilterBox
+                    :filter="filter"
+                    :image="image"
+                    v-for="(filter, i) in filters"
+                    :key="i"
+                ></FilterBox>
             </div>
         </div>
 
@@ -38,10 +39,44 @@ write!</textarea
 
 <script>
 import Post from "./Post.vue";
+import FilterBox from "./FilterBox.vue";
 export default {
     name: "Container",
+    data() {
+        return {
+            filters: [
+                "aden",
+                "_1977",
+                "brannan",
+                "brooklyn",
+                "clarendon",
+                "earlybird",
+                "gingham",
+                "hudson",
+                "inkwell",
+                "kelvin",
+                "lark",
+                "lofi",
+                "maven",
+                "mayfair",
+                "moon",
+                "nashville",
+                "perpetua",
+                "reyes",
+                "rise",
+                "slumber",
+                "stinson",
+                "toaster",
+                "valencia",
+                "walden",
+                "willow",
+                "xpro2",
+            ],
+        };
+    },
     components: {
         Post: Post,
+        FilterBox: FilterBox,
     },
     props: {
         postData: Array,
