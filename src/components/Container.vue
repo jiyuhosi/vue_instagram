@@ -1,8 +1,6 @@
 <template>
     <div>
-        <Post />
-        <Post />
-        <Post />
+        <Post :postData="postData[i]" v-for="(a, i) in postData" :key="i" />
     </div>
 </template>
 
@@ -12,6 +10,9 @@ export default {
     name: "Container",
     components: {
         Post: Post,
+    },
+    props: {
+        postData: Array,
     },
 };
 </script>

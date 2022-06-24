@@ -9,7 +9,8 @@
         <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container />
+    <Container :postData="postData" />
+    <button @click="morePost">more post</button>
 
     <div class="footer">
         <ul class="footer-button-plus">
@@ -21,11 +22,29 @@
 
 <script>
 import Container from "./components/Container.vue";
+import postData from "./assets/postdata.js";
+import axios from "axios";
 
 export default {
     name: "App",
     components: {
         Container: Container,
+    },
+    methods: {
+        morePost() {
+            axios
+                .get(`https://codingapple1.github.io/vue/more${this.more}.json`)
+                .then((result) => {
+                    this.postData.push(result.data);
+                    this.more++;
+                });
+        },
+    },
+    data() {
+        return {
+            postData: postData,
+            more: 0,
+        };
     },
 };
 </script>
