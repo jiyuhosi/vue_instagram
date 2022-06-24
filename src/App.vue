@@ -18,9 +18,11 @@
     />
     <button @click="morePost">more post</button>
     <h4>{{ $store.state.age }}</h4>
-    <button @click="$store.commit('addAge', 10)">button</button>
+    <button @click="addAge(10)">button</button>
     <p>{{ $store.state.more }}</p>
     <button @click="$store.dispatch('getData')">request more post</button>
+    <p>{{ name }},{{ age }}</p>
+
     <div class="footer">
         <ul class="footer-button-plus">
             <input
@@ -34,19 +36,13 @@
             <label for="file" class="input-plus">+</label>
         </ul>
     </div>
-    <!-- <div v-if="step == 0">내용0</div>
-    <div v-if="step == 1">내용1</div>
-    <div v-if="step == 2">내용2</div>
-    <button @click="step = 0">버튼0</button>
-    <button @click="step = 1">버튼1</button>
-    <button @click="step = 2">버튼2</button>
-    <div style="margin-top: 500px"></div> -->
 </template>
 
 <script>
 import Container from "./components/Container.vue";
 import postData from "./assets/postdata.js";
 import axios from "axios";
+import { mapState, mapMutations } from "vuex";
 
 export default {
     name: "App",
@@ -68,8 +64,14 @@ export default {
             this.selectedFilter = a;
         });
     },
-
+    computed: {
+        // name() {
+        //     return this.$store.state.name;
+        // },
+        ...mapState(["name", "age", "likes"]),
+    },
     methods: {
+        ...mapMutations(["setMore", "addLikes", "addAge"]),
         morePost() {
             axios
                 .get(`https://codingapple1.github.io/vue/more${this.more}.json`)
