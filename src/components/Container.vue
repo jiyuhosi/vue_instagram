@@ -36,12 +36,14 @@ write!</textarea
                 >
             </div>
         </div>
+        <div v-if="step == 3"><Mypage /></div>
     </div>
 </template>
 
 <script>
 import Post from "./Post.vue";
 import FilterBox from "./FilterBox.vue";
+import Mypage from "./Mypage.vue";
 export default {
     name: "Container",
     data() {
@@ -85,6 +87,7 @@ export default {
     components: {
         Post: Post,
         FilterBox: FilterBox,
+        Mypage,
     },
     props: {
         postData: Array,

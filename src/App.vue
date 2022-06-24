@@ -51,7 +51,7 @@ export default {
     },
     data() {
         return {
-            step: 0,
+            step: 3,
             postData: postData,
             more: 0,
             image: "",
